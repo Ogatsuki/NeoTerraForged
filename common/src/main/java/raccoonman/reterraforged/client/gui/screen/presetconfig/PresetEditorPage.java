@@ -218,11 +218,11 @@ public abstract class PresetEditorPage extends BisectedPage<PresetConfigScreen, 
 	    	int y = this.getY();
 	    	
 	    	this.height = this.getWidth();
-	    	guiGraphics.blit(RenderType::guiTextured, this.textureId, x, y, 0, 0, this.width, this.height, this.width, this.height);
+	    	guiGraphics.blit(this.textureId, x, y, 0, 0, this.width, this.height, this.width, this.height);
 
 	    	this.updateLegend(mx, my);
 
-	    	this.renderLegend(guiGraphics, mx, my, this.legendLabels, this.legendValues, x, y + this.width, 10, 0xFFFFFF);
+	    	this.renderLegend(guiGraphics, mx, my, this.legendLabels, this.legendValues, x, y + this.width, 10, 0xFFFFFFFF);
 	    }
 
 	    private boolean updateLegend(int mx, int my) {
@@ -269,11 +269,11 @@ public abstract class PresetEditorPage extends BisectedPage<PresetConfigScreen, 
 
 	    private void renderLegend(GuiGraphics guiGraphics, int mx, int my, Component[] labels, String[] values, int left, int top, int lineHeight, int color) {
 	        float scale = this.getLegendScale();
-	        PoseStack pose = guiGraphics.pose();
+	        var pose = guiGraphics.pose();
 	        	
-	        pose.pushPose();
-	        pose.translate(left + 3.75F * scale, top - lineHeight * (3.2F * scale), 0);
-	        pose.scale(scale, scale, 1);
+	        pose.pushMatrix();
+	        pose.translate(left + 3.75F * scale, top - lineHeight * (3.2F * scale));
+	        pose.scale(scale, scale);
 	
 	        Minecraft mc = Minecraft.getInstance();
 	        Font renderer = mc.font;
@@ -295,10 +295,10 @@ public abstract class PresetEditorPage extends BisectedPage<PresetConfigScreen, 
 	            guiGraphics.drawString(renderer, value, spacing, i * lineHeight, color);
 	        }
 	
-	        pose.popPose();
+	        pose.popMatrix();
 	
 	        if (!this.hoveredCoords.isEmpty()) {
-	        	guiGraphics.drawCenteredString(renderer, this.hoveredCoords, mx, my - 10, 0xFFFFFF);
+	        	guiGraphics.drawCenteredString(renderer, this.hoveredCoords, mx, my - 10, 0xFFFFFFFF);
 	        }
 	    }
 	

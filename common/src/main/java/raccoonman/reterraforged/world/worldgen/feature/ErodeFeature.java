@@ -82,7 +82,7 @@ public class ErodeFeature extends Feature<Config> {
 						//remove any foliage that may have generated above
 						pos.setY(surfaceY);
 						while(!level.getBlockState(pos.setY(pos.getY() + 1)).canSurvive(level, pos)) {
-							level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+							level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
 						}
 					}
 				}
